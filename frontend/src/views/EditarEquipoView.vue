@@ -34,7 +34,7 @@ const cargarEquipo = async () => {
       ...datos,
       fechaAdquisicion: datos.fechaAdquisicion?.substring(0, 10),
     };
-  } catch (err) {
+  } catch  {
     error.value = 'No se pudo cargar el equipo.';
   } finally {
     cargando.value = false;
@@ -46,7 +46,8 @@ const guardarCambios = async () => {
   guardando.value = true;
 
   try {
-    const { id, ...datosEquipo } = equipo.value;
+    const datosEquipo = { ...equipo.value };
+    delete datosEquipo.id;
 
     await actualizarEquipo(route.params.id, datosEquipo);
 
